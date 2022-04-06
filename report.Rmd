@@ -1,12 +1,13 @@
 ---
-title: "Social Networks"
-subtitle: ""
+title: "Measuring Polarization in Online Communities"
+subtitle: "Using Exponential Random Graph Models and Sentiment Analysis"
 author:
   - "William Gerecke"
 thanks: "Code can be found at https://github.com/wlgfour/social_networks"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 abstract: ""
-bibliography: references.bib
+bibliography: inputs/references.bib
+keywords: "Social networks, Exponential family Random Graph Model, ERGM, Polarization, Sentiment analysis"
 output:
   bookdown::pdf_document2: default
 ---
@@ -20,3 +21,39 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 ```
+
+
+# Introduction
+
+With the popularization of the internet, and increasing ease of access, social media is becoming ubiquitous in modern society. These platforms facilitate instant communication between individuals, or between an individual and large audience. Beyond the ease and availability of such communication, social media platforms are run by highly-engineered algorithms that are designed to find people and communities that are similar to each other. For people like hobbyists, this is good since it allows people from niche groups to find each other easily. It is possible, however, to see that this could have a polarizing in a different scenario. For example, people with political beliefs are presented with like-minded opinions from around the world, and such communities strengthen their beliefs by affirmation, rather than by a decision making process. As such, it is important to be able to measure and understand the effect that online communities have on the people that participate in them, and the behaviors exhibited wherein.
+
+Many social media platforms can be represented as graphs, as they represent an underlying social network of individuals. Graphs are data structures that are represented by a set of nodes $V$ and a set of edges $E\subseteq\{(x,y)\in V^2,x\not=y\}$ which represent a connection between nodes. There are countless phenomena that can be represented by this data structure, such as roads, mathematical operations, supply chains, the internet, social networks, and more. As such, understanding and modelling graphical structures is crucial to understanding the universe that we live in, and has been a topic of much research. The problem with graphical structures is that typical assumptions of independence are violated by many of the scenarios that are represented by graphs. For example, in a social network where people share an edge if they are friends, the probability of sharing an edge is no longer independent. This is because it is reasonable that sharing a mutual friend will influence the probability of a friendship. Statisticians have developed Exponential family Random Graph Models (ERGMs) in order to allow for the representation of these dependent relationships.
+
+In this paper, I look at polarization in online communities, specifically on the social media platform Reddit. For the purpose of this paper, I define polarization as the tendency for people to respond positively in the presence of positive sentiments, and negatively in the presence of negative sentiments. That is, polarization is defined to be when individuals in a community have views and opinions that align. I use a graph to represent interactions within communities on the Reddit, and sentiment analysis to classify individual interactions as positive or negative. *I find that ????*.
+
+I begin by describing how the data is gathered, cleaned, and parsed into a graphical structure. I proceed to elaborate on the model used for sentiment analysis, and the structure of ERGMs. After that, I discuss the results of applying these models to the data that was gathered in order to measure polarization in online communities. Finally I discuss weaknesses with the approach presented, the impact of the results, and suggest directions for future research.
+
+
+# Data
+
+
+
+# Model
+
+
+
+# Results
+
+
+
+# Discussion
+
+
+\newpage
+# References
+<div id="refs"></div>
+
+
+
+
+
