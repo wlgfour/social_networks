@@ -1,0 +1,22 @@
+---
+title: "Social Networks"
+subtitle: ""
+author:
+  - "William Gerecke"
+thanks: "Code can be found at https://github.com/wlgfour/social_networks"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+abstract: ""
+bibliography: references.bib
+output:
+  bookdown::pdf_document2: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(janitor)
+library(knitr)
+library(kableExtra)
+```
