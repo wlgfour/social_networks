@@ -42,11 +42,16 @@ I begin by describing how the data is gathered, cleaned, and parsed into a graph
 
 
 # Data
+##Software
+
+
 ## Gathering
 
 ## Cleaning
 
 ## Graph construction
+
+In order to create the graphical representation of the data, 
 
 
 

@@ -14,22 +14,36 @@ library(keyToEnglish)
 
 set.seed(123)
 
+
+sample_size <- 100
+n_users <- 10
+n_communities <- 5
+total_comments <- 100
+
+
 # generate list of communities
-communities <- sapply(stri_rand_strings(5, 5, pattern='[A-Za-z_]'), function (s) paste('r/', s, sep=''))
+communities <- sapply(stri_rand_strings(n_communities, 5, pattern='[A-Za-z_]'), function (s) paste('r/', s, sep=''))
 
 # generate a list of users to draw from
-users <- stri_rand_strings(50, 10, pattern='[A-Za-z0-9_!@#]')
+users <- stri_rand_strings(n_users, 10, pattern='[A-Za-z0-9_!@#]')
+
+# generate a list of comment IDs
+comment_ids <- stri_rand_strings(total_comments, 5, pattern='[A-Za-z0-9_!@#]')
+from_ids <- sample(comment_ids, sample_size, replace=TRUE)
+# !! this will break tree structure and include self-links
+# !! this violates that fact that each node only has one outgoing edge
+to_ids <- sample(comment_ids, sample_size, replace=TRUE)
 
 # draw a community for each post to belong to
-post_community <- sample(communities, 1000, replace=TRUE)
+post_community <- sample(communities, sample_size, replace=TRUE)
 
 # select from a list of users to represent the people writing the comments and
 # the people they are replying to
-comment_from <- sample(users, size = 1000, replace=TRUE)
-comment_to <- sample(users, size = 1000, replace=TRUE)
+comment_from <- sample(users, size = sample_size, replace=TRUE)
+comment_to <- sample(users, size = sample_size, replace=TRUE)
 
 # generate a distribution of sentiment scores in [-1, 1] with peaks at -1, 0, 1
-sentiment <- rbeta(1000, 0.3, 0.3)
+sentiment <- rbeta(sample_size, 0.3, 0.3)
 sentiment <- 2 * (sentiment - 0.5) ** 3
 
 png('outputs/simulated/sentiment.png')
@@ -41,14 +55,14 @@ dev.off()
 sentences <- generate_random_sentences(500)
 
 # generate comments from those sentences
-comment_lengths <- sample(1:6, 1000, replace=TRUE)
+comment_lengths <- sample(1:6, sample_size, replace=TRUE)
 comments <- sapply(comment_lengths, function(l) {
   paste(sample(sentences, l), collapse=' ')
   })
 
 # sample random unix timestamps in the week of april 3, 2022
 start <- strptime('2022-04-03 00:00:00', format="%Y-%m-%d %H:%M:%S")
-timestamps <- start + runif(1000, 0, 60 * 60 * 24 * 7)
+timestamps <- start + runif(sample_size, 0, 60 * 60 * 24 * 7)
 
 png('outputs/simulated/timestamps.png')
 possix_ts <- as.POSIXct(timestamps, origin = start, tz = "EST")
@@ -58,6 +72,8 @@ dev.off()
 
 # create a tibble
 df <- tibble(
+  id=from_ids,
+  to_id=to_ids,
   subreddit=post_community,
   from=comment_from,
   to=comment_to,
