@@ -1,19 +1,31 @@
 #### Preamble ####
-# Purpose: 
+# Purpose: fit the model that will be used to describe polarity
 # Author: William Gerecke
 # Email: wlgfour@gmail.com
 # Date: 4/25/2022
 # Prerequisites: R software
 # Notes:
 
+# === data structure ===
+# subreddit
+# author
+# id
+# to_id
+# permalink
+# timestamp
+# body
+
 
 
 #install.packages('statnet')
 library(statnet)
+library(stringr)
 
 
-comments <- read.csv('outputs/simulated/processed.csv')
-
+#comments <- read.csv('outputs/simulated/processed.csv')
+comments <- read.csv('outputs/processed/data.csv')
+#comments <- comments[sample(nrow(comments), 500), ]
+colnames(comments)
 
 # get unique users
 #from_users <- comments[['from']] |>
@@ -52,12 +64,12 @@ for (i in 1:nrow(comments)) {
   from <- comments[i, 'id']
   to <- comments[i, 'to_id']
   if (to != 'NA') {
-    adj[from, to] <- 1
+    adj[to, from] <- 1
   }
 }
 
 # create edge attributes matrix
-# would create a matrix like the adjavcency matrix, but with values
+# would create a matrix like the adjacency matrix, but with values
 
 # create node attributes
 node_values <- data.frame(matrix(nrow=length(all_ids), ncol=3))
@@ -66,7 +78,7 @@ node_values['id'] <- all_ids
 rownames(node_values) <- all_ids
 for (i in 1:nrow(comments)) {
   from <- comments[i, 'id']
-  to <- comments[i, 'id']
+  to <- comments[i, 'to_id']
   sub <- comments[i, 'subreddit']
   sentiment <- comments[i, 'sentiment']
   
@@ -94,58 +106,26 @@ net %v% 'subreddit' <- subreddits
 
 
 
-plot.network(net, # our network object
-             vertex.col = 'subreddit', # color nodes by gender
-             vertex.cex = sentiments * 5, # size nodes by their age
-             displaylabels = F, # show the node names
-             label.pos = 5 # display the names directly over nodes
-)
+#plot.network(net, # our network object
+#             vertex.col = 'subreddit', # color nodes by gender
+#             vertex.cex = sentiments * 5, # size nodes by their age
+#             displaylabels = F, # show the node names
+#             label.pos = 5 # display the names directly over nodes
+#)
 
 
+# === fit the model ===
 
-# fit themodel
-
-
-model <- ergm(net~edges+nodecov('sentiment'))
+model <- ergm(net~edges+nodecov('sentiment')+nodeicov('sentiment')+nodefactor('subreddit'))
 
 summary(model)
 
+g <- gof(model)
+
+plot(g)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# what if?
-# each [~user~] comment is a node
-# they share an edge if one replies to another
-# edge attributes
-#  - subreddit
-# node attributes
-#  - sentiment
-#  - ? user information
-
-# goal: look at effect of subreddit and sentiment on comments
-# how:
-#  - node attributes <fromsentiment> <tosentiment>
-#   - if tosent is positive, positive posts are likely to get a reply
-#   - if fromsent, replies have negative sentiment. is it echoing or opposite of the post it is replying to (tosent)
-
-# create a bipartite graph (for each subreddit)
-
-# problems:
-#  - users with multiple interactions in the same subreddit (conversations) will be arbitrarily removed
-#  - ideally this would be a tree structure with each comment being a node and having the user as an attribute, but computational limitations
 
 
 

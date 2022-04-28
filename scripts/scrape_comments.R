@@ -1,10 +1,18 @@
 #### Preamble ####
-# Purpose: 
+# Purpose: this script will scrape comments from reddit. it uses the .json
+#    endpoint available to any reddit url that expresses the content as json.
+#    comments are extracted as follows:
+#      1. gather posts from given subreddits into a list of links
+#      2. select a link at random, gather all comments, and append them to all_data
+#      3. if the link is a user, add all of the posts the commented on to links
+#      4. if the link is a post, add all the users that commented on it
+#      5. goto 2
 # Author: William Gerecke
 # Email: wlgfour@gmail.com
 # Date: 4/26/2022
 # Prerequisites: R software
-# Notes:
+# Notes: the script will run until stopped, but will cache the current dataframe
+#    as a chunk un outputs/raw every 10 posts visited. chunks are automatically labelled
 
 
 library(jsonlite)
@@ -14,7 +22,7 @@ library(purrr)
 library(crayon)
 
 
-# === functions for getting urls ===
+# === types and their associated content ===
 # t1 	Comment
 # t2 	Account
 # t3 	Link
@@ -24,14 +32,14 @@ library(crayon)
 # t8 	PromoCampaign
 
 # === data structure ===
+# subreddit
+# author
 # id
 # to_id
-# from
-# to
-# subreddit
-# body
-# timestamp
 # permalink
+# timestamp
+# body
+# ups
 
 
 # generate output file
@@ -98,7 +106,8 @@ process_comment <- function (children, depth) {
         to_id=parent_id,
         permalink,
         timestamp=created_utc,
-        body
+        body,
+        ups
       ) |>
       mutate(permalink = as.character(map(permalink, function(s) paste('http://reddit.com', s, sep=''))))
   }, error=function(err) {
@@ -149,9 +158,11 @@ while (length(links) > 0) {
   
   # extract data from posts and comments differently
   if (typ == 'p') {
+    if (length(post$data$children) == 0) next
+    if (length(post$data$children[[2]]) == 0) next
     children <- post$data$children[[2]] |>
       filter(kind == 't1')
-  } else if (typ == 'c') {
+  } else if (typ == 'u') {
     children <- post$data$children |>
       filter(kind == 't1')
   }
@@ -185,24 +196,25 @@ while (length(links) > 0) {
   if (typ == 'u') {
     # filter to only have replies to comments
     post_links <- raw |>
-      filter(parent_kind == 't1') |>
+#      filter(parent_kind == 't1') |>
       select(permalink) |>
-      unique() |>
-      mutate(permalink=map(permalink, function(s) list('p', paste(s, '.json', sep='')))) |>
-      filter(!(permalink %in% links_seen))
+      mutate(permalink=map(permalink, function(s) list('p', paste(s, '.json', sep=''))))# |>
+      #filter(!(permalink %in% links_seen))
     t <- post_links$permalink
     links <- c(links, t)
     
   # post
   } else if (typ == 'p') {
-    unseen_users <- raw |>
-      filter(!(author %in% users_seen))
-    t <- map(unseen_users$author, get_usr)
+    #unseen_users <- raw |>
+    #  filter(!(author %in% users_seen))
+    t <- map(raw$author, get_usr)
     users_seen <- c(users_seen, raw$author)
     links <- c(links, t)
+    #print(raw$author)
   }
   links <- unique(links)
-  all_data <- drop_na(all_data)
+  all_data <- drop_na(all_data) |>
+    distinct(id, to_id, .keep_all=T)
 }
 
 
