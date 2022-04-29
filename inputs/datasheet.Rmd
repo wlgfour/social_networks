@@ -1,18 +1,3 @@
----
-title: "Reddit Comment Network"
-author: 
-  - William Gerecke
-date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "This datasheet describes the dataset that was created for this project. Most importantly, the motivation, gathering process, cleaning, and maintenence."
-output:
-  bookdown::pdf_document2
-toc: FALSE
-bibliography: references_datasheet.bib
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Extract of the questions from @gebru2021datasheets
 

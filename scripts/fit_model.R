@@ -53,7 +53,7 @@ tryCatch({
 i <- 1
 sub <- subs[i]
 for (sub in subs) {
-  if (sub %in% keys(nets)) {
+  if (sub %in% keys(gofs)) {
     print(paste('skipping', sub))
     next
   }
@@ -154,7 +154,8 @@ for (sub in subs) {
   # === fit the model ===
   
   print(paste('fitting model for ', sub))
-  model <- ergm(net~edges+nodecov('sentiment')+nodeicov('sentiment')+nodecov('ups'))
+  #model <- ergm(net~edges+nodecov('sentiment')+nodeicov('sentiment')+nodecov('ups'))
+  model <- ergm(net~edges+nodecov('sentiment'))
   
   print(summary(model))
   

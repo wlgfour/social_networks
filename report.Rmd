@@ -5,7 +5,7 @@ author:
   - "William Gerecke"
 thanks: "The code for this project is hosted on GitHub at [wlgfour/social_networks](https://github.com/wlgfour/social_networks)"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "With the growth of the internet and social media platforms, it is increasingly easy for communities of like-minded people to form. This can be good, but often results in people strengthening beliefs by affirmation rather than by a decision making process. In this paper, I use Exponential Random Graph Models and sentiment analysis to measure polarization in online communities, specifically on the site Reddit. **I find that ???**. As such, it is important for companies that make social media sites as well as individuals using the sites to consider the impact of forming homogeneous communities in the future. \\par \\textbf {Keywords:} Social networks, Exponential family Random Graph Model, ERGM, Polarization, Sentiment analysis"
+abstract: "With the growth of the internet and social media platforms, it is increasingly easy for communities of like-minded people to form. This can be good, but often results in people strengthening beliefs by affirmation rather than by a decision making process. In this paper, I use Exponential Random Graph Models and sentiment analysis to measure polarization in online communities, specifically on the site Reddit. I find some evidence that indicates a diversity of opinions being expressed in several communities. However, it is still important for companies that make social media sites as well as individuals using the sites to consider the impact of forming homogeneous communities in the future. \\par \\textbf {Keywords:} Social networks, Exponential family Random Graph Model, ERGM, Polarization, Sentiment analysis"
 bibliography: inputs/references.bib
 keywords: "Social networks, Exponential family Random Graph Model, ERGM, Polarization, Sentiment analysis"
 toc: false
@@ -25,6 +25,8 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 library(cowplot)
+library(scales)
+library(hash)
 ```
 
 
@@ -51,14 +53,14 @@ With the popularization of the internet, and increasing ease of access, social m
 
 Many social media platforms can be represented as graphs, as they represent an underlying social network of individuals. Graphs are data structures that are represented by a set of nodes $V$ and a set of edges $E\subseteq\{(x,y)\in V^2,x\not=y\}$ which represent a connection between nodes. There are countless phenomena that can be represented by this data structure, such as roads, mathematical operations, supply chains, the internet, social networks, and more. As such, understanding and modelling graphical structures is crucial to understanding the universe that we live in, and has been a topic of much research. The problem with graphical structures is that typical assumptions of independence are violated by many of the scenarios that are represented by graphs. For example, in a social network where people share an edge if they are friends, the probability of sharing an edge is no longer independent. This is because it is reasonable that sharing a mutual friend will influence the probability of a friendship. Statisticians have developed Exponential family Random Graph Models (ERGMs) in order to allow for the representation of these dependent relationships.
 
-In this paper, I look at polarization in online communities, specifically on the social media platform Reddit. For the purpose of this paper, I define polarization as the tendency for people to respond positively in the presence of positive sentiments, and negatively in the presence of negative sentiments. That is, polarization is defined to be when individuals in a community have views and opinions that align. I use a graph to represent interactions within communities on the Reddit, and sentiment analysis to classify individual interactions as positive or negative. **I find that ????**.
+In this paper, I look at polarization in online communities, specifically on the social media platform Reddit. For the purpose of this paper, I define polarization as the tendency for people to respond positively in the presence of positive sentiments, and negatively in the presence of negative sentiments. That is, polarization is defined to be when individuals in a community have views and opinions that align. I use a graph to represent interactions within communities on the Reddit, and sentiment analysis to classify individual interactions as positive or negative. I find some evidence that indicates that differing opinions are being expressed on several popular Reddit communities, but highlight the fact that a better construction of the underlying data would yield more conclusive results.
 
 I begin by describing how the data is gathered, cleaned, and parsed into a graphical structure. I proceed to elaborate on the model used for sentiment analysis, and the structure of ERGMs. After that, I discuss the results of applying these models to the data that was gathered in order to measure polarization in online communities. Finally I discuss the impact of the results, weaknesses with the approach presented, and suggest directions for future research.
 
 
 # Data
 ## Software
-The R programming language [@r] was used to generate the report, data, and analyses associated with this project. The `purrr`, `dplyr`, `stringr`, and `tidyr` were used for data manipulation [@purrr, @dplyr, @stringr, @tidyr]. Data was simulated using the `stringi` and `keyToEnglish` packages [@stringi, @keyToEnglish]. The `vader`, which exposed an R API for the Vader NLP model was used to generate sentiment labels for the data [@vader]. `jsonlite` was used to scrape data from Reddit using Reddit's json API [@jsonlite]. The `statnet` package was used to generate network data structures, as well as fit ERGM models [@statnet, @ergm]. Finally, the code and data are hosted on GitHub [@git].
+The R programming language [@r] was used to generate the report, data, and analyses associated with this project. The `purrr`, `dplyr`, `stringr`, and `tidyr` were used for data manipulation [@purrr, @dplyr, @stringr, @tidyr]. Data was simulated using the `stringi` and `keyToEnglish` packages [@stringi, @keyToEnglish]. The `VADER`, which exposed an R API for the VADER NLP model was used to generate sentiment labels for the data [@vader]. `jsonlite` was used to scrape data from Reddit using Reddit's json API [@jsonlite]. The `statnet` package was used to generate network data structures, as well as fit ERGM models [@statnet, @ergm]. Finally, the code and data are hosted on GitHub [@git].
 
 
 ## Reddit
@@ -119,7 +121,7 @@ rbind(t1, t2) |>
 
 ```
 
-Statistics for the raw data that was gathered can be seen in table \@ref(tab:rawdata). There were `r nrow(raw_stats)` subreddits visited, but the data collected for most of them was fairly sparse. It is important to note that when Reddit returns information, it hides many of the comments in a post by default. It is possible to retrieve the hidden comments by expanding certain links, but I did not do that for this project, which explains why the comment multiplicity is so low, averaging between 1 and 2 in the dataset. We can also see that significantly more comments have been gathered from AskReddit than any other subreddit. This is probably because this was one of the seed communities, and the posts on AskReddit ahve a high multiplicity. As such, many links were gathered from AskReddit early, making it more likely to gather more links from AskReddit, which in turn makes it more likely to gather even more links from AskReddit. This is an artifact of the algorithm that I used to scrape data, and the report would benifit from designing an algorithm that does not have this weakness.
+Statistics for the raw data that was gathered can be seen in table \@ref(tab:rawdata). There were `r nrow(raw_stats)` subreddits visited, but the data collected for most of them was fairly sparse. It is important to note that when Reddit returns information, it hides many of the comments in a post by default. It is possible to retrieve the hidden comments by expanding certain links, but I did not do that for this project, which explains why the comment multiplicity is so low, averaging between 1 and 2 in the dataset. We can also see that significantly more comments have been gathered from AskReddit than any other subreddit. This is probably because this was one of the seed communities, and the posts on AskReddit have a high multiplicity. As such, many links were gathered from AskReddit early, making it more likely to gather more links from AskReddit, which in turn makes it more likely to gather even more links from AskReddit. This is an artifact of the algorithm that I used to scrape data, and the report would benefit from designing an algorithm that does not have this weakness.
 
 
 ## Cleaning
@@ -128,7 +130,89 @@ Once the data scraping script is run, and there are one or more chunks of raw da
 
 The filtering process excluded portions of the data for two reasons. One is because there weren't enough data points, and the second is because there were too many data points for the analyses to be computationally feasible. Data were first gathered and grouped by subreddit. Then data from a subreddit with fewer than 500 recorded comments were dropped. Finally, if a subreddit had more than 1000 recorded comments, 1000 were selected at random.
 
-The sentiment scoring process was the main computational bottleneck in the data preparation process. With better software design, the process cold be parallelized to greatly speed up the labeling process and allow for larger datasets. This, however, would likely need to be done outside of the R language because even when run using only one thread on about 20,000 comments, the R garbage collection process caused the program to crash repeatedly. 
+The sentiment scoring process was the main computational bottleneck in the data preparation process. With better software design, the process cold be parallelized to greatly speed up the labeling process and allow for larger datasets. This, however, would likely need to be done outside of the R language because even when run using only one thread on about 20,000 comments, the R garbage collection process caused the program to crash repeatedly.
+
+```{r cleanstats, echo=F}
+comment_stats <- comments |>
+  drop_na() |>
+  group_by(subreddit) |>
+  summarise(
+    n=n(),
+    users=n_distinct(author),
+    multiplicity=n() / n_distinct(to_id),
+    sentiment=mean(sentiment)
+  ) |>
+  arrange(desc(n))
+
+t1 <- comment_stats
+
+t2 <- comment_stats |>
+  summarise(
+    subreddit='Total',
+    n=sum(n),
+    users=sum(users),
+    multiplicity=mean(multiplicity),
+    sentiment=mean(sentiment)
+  )
+
+
+rbind(t1, t2) |>
+  knitr::kable(
+    col.names = c('Subreddit', 'Posts', 'Unique users', 'Average replies per comment', 'Avg. sentiment'),
+    caption = 'The table shows the summary statistics for the 15 subredits with the most comments recorded, and the total summary statistics for all subreddits visited.',
+    digits = c(0, 0, 0, 2, 2),
+    format.args = list(big.mark = ","),
+    booktabs = T
+  ) |>
+  kableExtra::row_spec(15, hline_after=T)
+```
+
+
+```{r sentchart, echo=F, fig.width=6, fig.height=2.5, fig.align='center', fig.cap="Average sentiment expressed in comments on each subreddit that was included in the cleaned dataset."}
+comment_stats <- comments |>
+  drop_na() |>
+  group_by(subreddit) |>
+  summarise(
+    n=n(),
+    users=n_distinct(author),
+    multiplicity=n() / n_distinct(to_id),
+    sentiment=mean(sentiment)
+  ) |>
+  arrange(desc(n))
+
+t1 <- comment_stats
+
+t2 <- comment_stats |>
+  summarise(
+    subreddit='Total',
+    n=sum(n),
+    users=sum(users),
+    multiplicity=mean(multiplicity),
+    sentiment=mean(sentiment)
+  )
+
+comment_stats |>
+  ggplot(aes(
+    x=reorder(subreddit, -sentiment),
+    y=sentiment,
+    fill=sentiment)
+  ) +
+  labs(
+    x = 'Subreddit',
+    y = 'Avg. sentiment',
+    fill = 'Sentiment'
+  ) +
+  geom_bar(stat='identity') +
+  scale_fill_gradient2(low = 'red', mid = 'grey', high = muted('green', l=80, c=50), midpoint = 0) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=33, vjust=1, hjust=1))
+```
+
+In table \@ref(tab:cleanstats), we can see the information for the `r nrow(comment_stats)` subreddits that were included in the cleaned dataset. As we can see, the subreddits have between 500 and 1000 comments each, with some subreddits having significantly more unique users. This is most likely due to the random sample that was taken for groups that had more than 1,000 comments. We can also see that the subreddits that were sampled are significantly sparser than they were before the sampling. A better sampling operation that preserves the structure of the comment chains could be advantageous when fitting models to represent the interactions that are present. We can see that there is one subreddit with only 54 values in the cleaned data. This is because the script that cleaned the data and labeled the sentiments always crashed before labeling all of the sentiments.
+
+Figure \@ref(fig:sentchart) shows the average sentiments of the comments that were gathered for each subreddit. We can see that overall, most of the comments are slightly positive, but mostly neutral, with very few negative comments relative to positive comments. Beyond that, we can see that news and EldenRing have the lowest average sentiment scores, with gifs having a much higher average score.
+
+
 
 ## Graph construction
 
@@ -158,6 +242,29 @@ There are two constraints on the nodes:
 1. $node.sentiment\in[-1,1]$
 2. $\{node.parent|node\in V\}\equiv \{node.id|node\in V\}$
 
+```{r graphstats, echo=F}
+nets |>
+  keys() |>
+  map(function(name) {
+    n <- nets[[name]]
+    data.frame(
+      subreddit = name,
+      nodes = network::network.size(nets[[keys(nets)[1]]]),
+      edges = network::network.edgecount(nets[[keys(nets)[1]]]),
+      edges = network::network.density(nets[[keys(nets)[1]]])
+      )
+  }) |>
+  bind_rows() |>
+  knitr::kable(
+    col.names = c('Subreddit', 'Nodes', 'Edges', 'Density'),
+    caption = 'The table shows the descriptive statistics of the graphs that represent the data collected for each subreddit.',
+    digits = c(0, 0, 0, 4),
+    format.args = list(big.mark = ","),
+    booktabs = T
+  )
+
+```
+
 
 Exceptions to these rules are posts themselves, since top level comments are all direct children of posts, which do not have a parent or sentiment. In this case, $parent.parent=NA$, and is not included in the graph. The result of this is that comment chains will appear as inverted trees.
 
@@ -165,10 +272,11 @@ Since the graph is directional, the existence of an edge $(u,v)\in E$ does not g
 
 Furthermore, I define one graph for each subreddit, $sub$, as the graph over the nodes $V_{sub}\equiv\{n|n.subreddit=sub,\ n\in V\}$. Note that there are no edges that need to be severed due to this construction because any comment will explicitly be a reply to some media that was posted in that subreddit. Thus, $G_{sub}=(V_{sub},E_{sub})$ is a straightforward construction.
 
+Table \@ref(tab:graphstats) shows the statistics for the graphs constructed for each subreddit. We can see that the graphs are extremely sparse. This is because of the fact that I did not expand the comments that were hidden when scraping data. This is also due to the fact that I had to sample the data during the cleaning process, and I did it in a way that did not preserve comment chains which resulted in the artifact shown in the table. This is supported by the fact that the subreddits that were subsampled to a lower proportion of the total data collected have a lower density.
 
 # Model
 ## Sentiment Analysis
-Sentiment analysis was done using the Vader (Valance Aware Dictionary for sEntiment Reasoning) model from NLP that was specifically designed to perform well on content from the internet [@vader]. VADER is capable of identifying polarity and intensity of the sentiment expressed by text and returns a composite sentiment score between -1 and 1, where -1 represents a strong negative sentiment, 0 is neutral, and 1 represents a strong positive sentiment.
+Sentiment analysis was done using the VADER (Valance Aware Dictionary for sEntiment Reasoning) model from NLP that was specifically designed to perform well on content from the internet [@vader]. VADER is capable of identifying polarity and intensity of the sentiment expressed by text and returns a composite sentiment score between -1 and 1, where -1 represents a strong negative sentiment, 0 is neutral, and 1 represents a strong positive sentiment.
 
 VADER uses a dictionary to identify lexical fragments and assign sentiment scores (intensity and polarity) to components of the body of text. The dictionary that maps lexical features to sentiment scores was trained using manually labeled data. VADER is also capable of understanding contextualization such as "I don't like this," as well as non-standard contractions such as "like'nt" by using some simple heuristics that the authors decided on. The scores assigned to lexical components are then averaged, and normalized.
 
@@ -194,24 +302,102 @@ Typically, features account for the structural dependencies int he graph, allowi
 
 # Results
 
+In order to assess polarity in the dataset that I gathered, I fit an ERGM model to the graph that represents each subreddit. For model features, I used the sentiment covariances, as well as basic geometric predictors that are present in the graph, such as edges which is equivalent to using the mean in a linear model. The idea between using the covariance associated with the sentiment score is that if the sentiment score covariance is found to have a positive impact on the formation of an edge, then this indicates that comments are likely to be replies to like-minded comments. That is, comments are more likely to be replies to comments that express the same sentiment. Similarly, a negative impact on edge formation signifies that comments are more likely to disagree with each other. In other words, if a comment expresses a positive sentiment, it is likely to receive a negative reply.
+
+```{r modelstats, echo=F}
+options(knitr.kable.NA = "")
+keys(models) |>
+  map(function(name) {
+    coefs <- summary(models[[name]])$coefs
+    e <- coefs[1,'Estimate']
+    pe <- coefs[1,'Pr(>|z|)']
+    
+    c <- coefs[2,'Estimate']
+    pc <- coefs[2,'Pr(>|z|)']
+    
+    data.frame(
+      subreddit = name,
+      edges = e,
+      pe = pe,
+      'cov.sentiment' = c,
+      pc = pc
+    )
+  }) |>
+  bind_rows() |>
+  knitr::kable(
+    col.names = c('Subreddit', 'Edges', 'Pr(edges>|z|)', 'Sentiment cov.', 'Pr(cov(sentiment)>|z|)'),
+    caption = 'The table shows the estimated parameters for the models fit to each subreddit graph as well as their confidence levels.',
+    digits = c(0, 2, 3, 2, 3),
+    format.args = list(big.mark = ","),
+    booktabs = T
+  )
+
+```
+
+Table \@ref(tab:modelstats) describes the model statistics that were fit to the different subreddits. In Appendix A, we can see an example of the GOF assessment of the gifs community. In both Table \@ref(tab:modelstats) we can see that the models we see are fairly weak, and this is likely due to the fact that they are heavily influenced by the construction that was used to build the graphs. First of all, we can see that the base log odds of an edge is extremely low, which is because of the fact that the graphs are so sparse. Furthermore, in Appendix A, we see more evidence of this in the GOF plot for geodesic distance, as it indicates that the vast majority of nodes have no path between each other.
+
+With this in mind, we can see that the sentiment covariance is negative, indicating a lack of polarity, or a diversity of comments. However, we can see that the magnitude of these estimates are fairly small relative to the estimates for edges, indicating that perhaps the sentiment of a post has little impact on the sentiment of the posts around it. These observations are mostly invalidated, however, by the fact that the confidence levels associated with the covariance term are extremely low.
 
 
 # Discussion
 ## Findings
+As seen in the results section, I find that there is little polarity in several popular reddit communities, and in fact, some evidence that indicates a diversity of opinions. The results, however, are not very conclusive because of the way the underlying structure of the data gathered was changed during the cleaning process.
 
 ## Weaknesses
 
-- scraping algotithm visits some subreddits more often
-- scraping didn't expand hidden comments
-- computational tractability
-  - small dataset
+The approach described in this report has many weaknesses that severely affect the quality of the results. Most importantly is the fact that the structure of the data being used to fit the model is different from the structure of the data that was gathered, which is different from the structure of the data as it appears on the internet. These weaknesses come first from the fact that the data scraping script did not expand comments that were hidden by the initial API call, as well as the fact that the obtained data were subsampled in order to make the labeling and model fitting computationally tractable. This greatly affects the impact of the model results, as they no longer correspond to the information that is contained on the original social media site.
+
+Second is that some communities are significantly over represented in the dataset, as seen specifically in the case of AskReddit. This is because of the way the data scraping script was constructed. Consider the links visited as a tree where each link is a node, and its children are the links that it adds to the pool of links. The scraping script selected a leaf at random, with equal likelihood of selecting a leaf regardless of its depth, however, this caused the artifact described above. In order to fix this, the leafs should be selected with a probability that is inversely proportionate to their depth in the tree.
+
+Finally, the model that was used to fit the data was very simple, and there are many more features that could explain relationships in the dataset. An example of this is the directional covariance of the sentiment scores of comments. For example, the sentiment of a node's parent without the sentiment of the node itself could be a predictor for edge formation. Another example is that the upvotes of a post, or popularity, could affect its visibility, and therefore the likelihood of an edge being formed.
 
 ## Future work
 
+It is very important to understand the effect that social media has on the general population. One of the most impact ways that social media algorithms affect peoples opinions is the people that it connects with each other. Connecting like minded people and not connecting people with different opinions could easily lead to increased polarization in communities. As such, it is important to pay attention to the effect that automatically grouping people into communities has, and develop methods that allow people to examine these effects.
+
+With respect to the work done in this project, there are three major points for future work. The first is developing a scraping algorithm that gathers a more representative sample of the data contained on social media sites. The second is finding a graphical construction that allows for better representations of online conversations, as well as more computational efficient representations of online environments. Finally, creating a model that better fits the data is important in order to fully understand the patterns that occur in online environments.
+
+
 
 \newpage
+
+# Appendix A: GOF plots for r/gifs
+
+```{r, echo=F}
+#keys(gofs) |>
+#  map(function(name) {
+#    plot(gofs[[name]])
+#  })
+
+plot(gofs[['gifs']])
+
+
+```
+
+
+
+
+
+
+\newpage
+
+# Appendix B: Data sheet
+```{r child='inputs/datasheet.Rmd'}
+```
+
+
+
+
+\newpage
+
 # References
-<div id="refs"></div>
+
+
+
+
+
+
+
 
 
 
