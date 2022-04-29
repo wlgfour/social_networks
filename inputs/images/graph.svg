@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="151.27365mm"
+   height="123.1651mm"
+   viewBox="0 0 151.27365 123.1651"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="graph.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.64052329"
+     inkscape:cx="253.69882"
+     inkscape:cy="295.85185"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="-8"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1317" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-29.71533,-35.498377)">
+    <rect
+       style="fill:#abc837;fill-opacity:0.567757;stroke:#abc837;stroke-width:0.465"
+       id="rect1052"
+       width="66.504868"
+       height="39.242004"
+       x="77.244781"
+       y="35.730877" />
+    <rect
+       style="fill:#abc837;fill-opacity:0.567757;stroke:#abc837;stroke-width:0.535634"
+       id="rect1052-5-7"
+       width="70.523453"
+       height="49.102337"
+       x="29.983147"
+       y="109.29332" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="M 63.200277,109.05146 97.795198,75.385951"
+       id="path1230"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="M 148.70653,109.05146 121.85674,75.385951"
+       id="path1232"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="77.900124"
+       y="42.060562"
+       id="text3403"><tspan
+         sodipodi:role="line"
+         id="tspan3401"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="77.900124"
+         y="42.060562">Parent</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="77.851891"
+       y="49.489758"
+       id="text3403-1"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="77.851891"
+         y="49.489758">Id: <tspan
+   style="font-size:4.23333px"
+   id="tspan16496">t3_1234abcd</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="30.591583"
+       y="115.66927"
+       id="text3403-0"><tspan
+         sodipodi:role="line"
+         id="tspan3401-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.591583"
+         y="115.66927">Child</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="30.315975"
+       y="123.22324"
+       id="text3403-1-5"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.315975"
+         y="123.22324">Id: <tspan
+   style="font-size:4.23333px"
+   id="tspan16496-2">t1_1234abcd</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="30.364206"
+       y="130.51541"
+       id="text3403-1-5-3"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.364206"
+         y="130.51541">Parent: <tspan
+   style="font-size:4.23333px"
+   id="tspan16496-2-0">t3_1234abcd</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="30.874081"
+       y="138.41391"
+       id="text3403-1-5-3-9"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.874081"
+         y="138.41391">Author: <tspan
+   style="font-size:4.23333px"
+   id="tspan68969">user223</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="77.900124"
+       y="56.312614"
+       id="text3403-1-5-3-0"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="77.900124"
+         y="56.312614">Parent: <tspan
+   style="font-size:4.23333px"
+   id="tspan85806">N/A</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="78.409996"
+       y="63.741806"
+       id="text3403-1-5-3-9-0"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5-0-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="78.409996"
+         y="63.741806">Author: <tspan
+   style="font-size:4.23333px"
+   id="tspan68969-0">user123</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:0.35;font-family:sans-serif;stroke-width:0.264583"
+       x="30.908531"
+       y="146.00922"
+       id="text3403-1-5-0"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.908531"
+         y="146.00922">Body: <tspan
+   style="font-size:2.82222px"
+   id="tspan45129">Lorem ipsum dolor sit amet,</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.908531"
+         y="149.08022"
+         id="tspan48767"><tspan
+           style="font-size:2.82222px"
+           id="tspan48769">               consectetur adipiscing elit.</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="30.908531"
+         y="152.15123"
+         id="tspan56913"><tspan
+           style="font-size:2.82222px"
+           id="tspan56915">               Nulla et fermentum ligula, </tspan></tspan></text>
+    <rect
+       style="fill:#abc837;fill-opacity:0.567757;stroke:#abc837;stroke-width:0.535634"
+       id="rect1052-5-7-6"
+       width="70.523453"
+       height="49.102337"
+       x="110.19771"
+       y="109.22478" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="110.80614"
+       y="115.60073"
+       id="text3403-0-4"><tspan
+         sodipodi:role="line"
+         id="tspan3401-0-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="110.80614"
+         y="115.60073">Child</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="110.53054"
+       y="123.1547"
+       id="text3403-1-5-39"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="110.53054"
+         y="123.1547">Id: <tspan
+   style="font-size:4.23333px"
+   id="tspan16496-2-04">t1_2234abcd</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="110.57877"
+       y="130.44688"
+       id="text3403-1-5-3-08"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="110.57877"
+         y="130.44688">Parent: <tspan
+   style="font-size:4.23333px"
+   id="tspan16496-2-0-6">t3_1234abcd</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.15;font-family:sans-serif;stroke-width:0.264583"
+       x="111.08865"
+       y="138.34538"
+       id="text3403-1-5-3-9-5"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-5-0-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="111.08865"
+         y="138.34538">Author: <tspan
+   style="font-size:4.23333px"
+   id="tspan68969-6">user323</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:0.35;font-family:sans-serif;stroke-width:0.264583"
+       x="111.12309"
+       y="145.94069"
+       id="text3403-1-5-0-4"><tspan
+         sodipodi:role="line"
+         id="tspan3401-8-0-7-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="111.12309"
+         y="145.94069">Body: <tspan
+   style="font-size:2.82222px"
+   id="tspan45129-9">Lorem ipsum dolor sit amet,</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="111.12309"
+         y="149.01169"
+         id="tspan48767-2"><tspan
+           style="font-size:2.82222px"
+           id="tspan48769-7">               consectetur adipiscing elit.</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.264583"
+         x="111.12309"
+         y="152.0827"
+         id="tspan56913-0"><tspan
+           style="font-size:2.82222px"
+           id="tspan56915-2">               Nulla et fermentum ligula, </tspan></tspan></text>
+  </g>
+</svg>
